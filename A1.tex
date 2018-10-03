@@ -104,26 +104,27 @@ currentCol = 0
 \newline
 numberOfManmen = 0
 \begin{lstlisting}
-while (currentCol < N or currentRow < N):
-        colIndex = (0,0)
-        rowIndex = (0,0)
-        for index to len(AH) :
-               if AH[index].0 == currentRow and rowIndex == (0,0):
-                    rowIndex = AH[index]
-                    continue
-               if AH[index].1 == currentCol and colIndex == (0,0) :
-                    colIndex = AH[index]
-                    continue
-        deltaX =  rowIndex.0 - currentRow
-        deltaY = colIndex.1 - currentCol
-        if deltaX > deltaY:
-            go down
-            currentCol++
-            routes[numberOfManmen] = 
-        if  deltaX < deltaY
-            go right
-            currentRow++
-            
+while(len(AH) > 0)
+    while (currentCol < N or currentRow < N):
+            colIndex = (0,0)
+            rowIndex = (0,0)
+            for index to len(AH) :
+                   if AH[index].0 == currentRow and rowIndex == (0,0):
+                        rowIndex = AH[index]
+                        continue
+                   if AH[index].1 == currentCol and colIndex == (0,0) :
+                        colIndex = AH[index]
+                        continue
+            deltaX =  rowIndex.0 - currentRow
+            deltaY = colIndex.1 - currentCol
+            if deltaX > deltaY:
+                go down
+                currentCol++
+                routes[numberOfManmen] = 
+            if  deltaX < deltaY
+                go right
+                currentRow++
+                
             
         
         
