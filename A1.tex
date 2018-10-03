@@ -27,12 +27,39 @@ Question 1
 \end{tikzpicture}
 \end{center}
 Question 2
-\\
-\\
-Two ways to look at this problem is to either minimize the amount of houses that are visited, or to maximize the amount of house each Mailmen finds. In my search for an algorithm I began debating between two main Algorithms i will refer to as Shortest and Most Houses. 
+\hfill \break
+\break
+Two ways to look at this problem is to either minimize the amount of houses that are visited, or to maximize the amount of house each Mailmen finds. In my search for an algorithm I began debating between two main Algorithms I will refer to as \textbf{Shortest}  and \textbf{Most Houses}. 
+\hfill \break
+\break
+\textbf{Shortest} simply starts by looking both down and right and checks to see from the current position of the mailman which one is closer and takes a step in that direction. then proceeds to checks again by looking down and to the right to see if there is a house closer to himself now that he has moved in on of the two directions.
+\hfill \break
+\break
+ \textbf{Most Houses} works in a similar fashion the previous Algorithm by looking in both directions. However where this Algorithm differ is that instead of looking for closest House, it instead looks for the most amount of Houses in that direction regardless of how far away it is. then upon moving in the direction with the most houses, the Algorithm then repeats the previous check by looking in both directions to ensure that.
+ \hfill \break
+\break
+However upon further examination and counter example exploration the  \textbf{Most Houses} fails to give an optimal solution for the following graph
+
+
+\begin{center}
+\begin{tikzpicture}
+\draw[step=0.5cm,color=gray] (-1,-1) grid (3,3);
+\node at (1.25,+2.75) {H};
+\node at (-.25,+2.25) {H};
+\node at (-0.25,+1.75) {H};
+\node at (+0.75,+1.25) {H};
+\node at (1.75,+1.75) {H};
+\node at (2.75,+0.75) {H};
+\node at (+2.25,0.25) {H};
+\node at (+.25,+0.25) {H};
+\node at (-.75,.25) {H};
+\end{tikzpicture}
+\end{center}
+ 
+
+
 \pagebreak
-\\
-\\
+
 Question 2.1
 \begin{center}
 
