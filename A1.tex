@@ -1,5 +1,6 @@
 \documentclass[11pt]{article}
 \usepackage{tikz}
+\usepackage{listings}
 
 
 \author{Andrew}
@@ -43,7 +44,7 @@ However upon further examination and counter example exploration the  \textbf{Mo
 \noindent\fboxsep{%
 \begin{minipage}{14em}
  \centering
- Figure 1
+ Figure 1 \textbf{Shortest}
 \begin{tikzpicture}
 
 \draw[step=0.5cm,color=gray] (-1,-1) grid (3,3);
@@ -62,7 +63,7 @@ However upon further examination and counter example exploration the  \textbf{Mo
 \fboxsep{%
 \begin{minipage}{14em}
  \centering
- Figure 2
+ Figure 2 \textbf{Most Houses}
 \begin{tikzpicture}
 
 \draw[step=0.5cm,color=gray] (-1,-1) grid (3,3);
@@ -85,7 +86,60 @@ However upon further examination and counter example exploration the  \textbf{Mo
 
 \hfill \break
 \break
-Where as the Shortest path method still gives the optimal number of paths which is 3. This does not mean that our  \textbf{Shortest} Algorithm is correct 
+Where as the Shortest path method still gives the optimal number of paths which is 3. This does not mean that our  \textbf{Shortest} Algorithm is correct only that it is better then our \textbf{Most Houses} Algorithm.
+\hfill \break
+\break
+\\
+Step by Step look at \textbf{Shortest} Algorithm
+\hfill \break
+\break
+AH = Array of Houses on Grid pre sorted by x values
+\newline
+routes =  2D matrix with Mailmen as the first level and their routes as the second array pre polupated 
+GRID = 2D matrix of Size N by N
+\newline
+currentRow = 0
+\newline
+currentCol = 0
+\newline
+numberOfManmen = 0
+\begin{lstlisting}
+while (currentCol < N or currentRow < N):
+        colIndex = (0,0)
+        rowIndex = (0,0)
+        for index to len(AH) :
+               if AH[index].0 == currentRow and rowIndex == (0,0):
+                    rowIndex = AH[index]
+                    continue
+               if AH[index].1 == currentCol and colIndex == (0,0) :
+                    colIndex = AH[index]
+                    continue
+        deltaX =  rowIndex.0 - currentRow
+        deltaY = colIndex.1 - currentCol
+        if deltaX > deltaY:
+            go down
+            currentCol++
+            routes[numberOfManmen] = 
+        if  deltaX < deltaY
+            go right
+            currentRow++
+            
+            
+        
+        
+        
+           
+            
+            
+                
+                
+    
+\end{lstlisting}
+
+
+
+
+
  
 
 
