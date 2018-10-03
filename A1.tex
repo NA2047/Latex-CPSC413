@@ -40,9 +40,12 @@ Two ways to look at this problem is to either minimize the amount of houses that
 \break
 However upon further examination and counter example exploration the  \textbf{Most Houses} fails to give an optimal solution for the following graph
 
-
-\begin{center}
+\noindent\fboxsep{%
+\begin{minipage}{14em}
+ \centering
+ Figure 1
 \begin{tikzpicture}
+
 \draw[step=0.5cm,color=gray] (-1,-1) grid (3,3);
 \node at (1.25,+2.75) {H};
 \node at (-.25,+2.25) {H};
@@ -54,7 +57,35 @@ However upon further examination and counter example exploration the  \textbf{Mo
 \node at (+.25,+0.25) {H};
 \node at (-.75,.25) {H};
 \end{tikzpicture}
-\end{center}
+\end{minipage}}%
+\hfill%
+\fboxsep{%
+\begin{minipage}{14em}
+ \centering
+ Figure 2
+\begin{tikzpicture}
+
+\draw[step=0.5cm,color=gray] (-1,-1) grid (3,3);
+\node at (1.25,+2.75) {H};
+\node at (-.25,+2.25) {H};
+\node at (-0.25,+1.75) {H};
+\node at (+0.75,+1.25) {H};
+\node at (1.75,+1.75) {H};
+\node at (2.75,+0.75) {H};
+\node at (+2.25,0.25) {H};
+\node at (+.25,+0.25) {H};
+\node at (-.75,.25) {H};
+\end{tikzpicture}
+\end{minipage}
+}
+
+
+
+
+
+\hfill \break
+\break
+Where as the Shortest path method still gives the optimal number of paths which is 3. This does not mean that our  \textbf{Shortest} Algorithm is correct 
  
 
 
