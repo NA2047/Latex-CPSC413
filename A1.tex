@@ -1,6 +1,8 @@
 \documentclass[11pt]{article}
 \usepackage{tikz}
 \usepackage{listings}
+\usepackage[english]{babel}
+\usepackage[autostyle]{csquotes}
 
 
 \author{Andrew}
@@ -103,7 +105,7 @@ currentRow = 0
 \newline
 currentCol = 0
 \newline
-numberOfManmen = 0
+numberOfMailMen = 0
 \newline
 N =  max number of rows and col in NxN matrix
 \begin{lstlisting}
@@ -123,16 +125,16 @@ while(len(numberOfHouse) > 0)
             if deltaX > deltaY:
                 go down
                 currentCol++
-                routes[numberOfManmen] = (currentRow,currentCol)
+                routes[numberOfMailMen] = (currentRow,currentCol)
             if  deltaX < deltaY
                 go right
                 currentRow++
-                routes[numberOfManmen] = (currentRow,currentCol)
+                routes[numberOfMailMen] = (currentRow,currentCol)
             for index to len(AH):
                 if AH[index].0 == currentRow & AH[index].1 == currentCol:
                     numberOfHouse = numberOfHouse - 1
             if currentRow == (N-1) and currentRow == (N-1):
-                numberOfManmen = numberOfManmen + 1
+                numberOfMailMen = numberOfMailMen + 1
                 currentCol = 0
                 currentRow = 0
                 
@@ -238,13 +240,31 @@ Question 2.1
 Question 2.2
 \\
 \\
-The Graph I have given below is not the smallest number of nodes that you can use to give a counter example. Infact key to the counter example comes by denying the flaw with this algorithm like the one above comes from when there is a tie. particularly when there is no even Node to choose from.
-\begin{center}
+The Graph I have given below is not the smallest number of nodes that you can use to give a counter example. In fact key to the counter example comes by denying the Algorithm an even edge and forcing it to pick an odd edge that is not going to give the Optimal Solution. The flaw with this algorithm like the one above comes from when there is a tie. particularly when there is no even Node to choose from and there by  \\\enquote{\textbf{mark[ing] any one vertex of odd degree}}.
+\hfill \break
+\break
+\textbf{Non-optimal choice}
+\begin{steps}
+  \item \textbf{Step 1:} Start at Node 2 and \textbf{mark} it
+  \item \textbf{Step 2:} Remove Node 2, 3 and 1 because they are now next to a \textbf{marked} Node
+  \item \textbf{Step 3:} There are no Even Nodes so pick any Odd Node in this case\\ Node 4 and \textbf{mark} it
+  \item \textbf{Step 4:} Remove Nodes 4 and 5 because they are now next to a \textbf{marked} Node
+  \item \textbf{Step 5:} Now remaining Nodes 7 and 6 will need to be \textbf{marked} individually 
+\end{steps}
+\hfill \break
+
+
+
+
+\noindent\fboxsep{%
+\begin{minipage}{14em}
+ \centering
+ Step 1 \textbf{non-optimal}
 \begin{tikzpicture}[auto, node distance=2cm, every loop/.style={},
                     thick,main node/.style={circle,draw,font=\sffamily\Large\bfseries}]
 
   \node[main node] (1) {1};
-  \node[main node] (2) [below left of=1] {2};
+  \node[main node,fill=red] (2) [below left of=1] {2};
 \node[main node] (3) [below  of=2] {3};
 \node[main node] (4) [right  of=3] {4};
 \node[main node] (5) [ right  of=4] {5};
@@ -260,17 +280,275 @@ The Graph I have given below is not the smallest number of nodes that you can us
     (5) edge node [left] {} (6)
     (5) edge node [left] {} (7)
     (7) edge node [left] {} (1);
-
-    
-         
-
-  
-
-  
-
  
 \end{tikzpicture}
+\end{minipage}}%
+\hfill%
+\fboxsep{%
+\begin{minipage}{14em}
+ \centering
+ Step 2 \textbf{non-optimal}
+\begin{tikzpicture}[auto, node distance=2cm, every loop/.style={},
+                    thick,main node/.style={circle,draw,font=\sffamily\Large\bfseries}]
+  \node[main node,draw=none] (1) {};
+  \node[main node,draw=none] (2) [below left of=1] {};
+\node[main node,draw=none] (3) [below  of=2] {};
+\node[main node] (4) [right  of=3] {4};
+\node[main node] (5) [ right  of=4] {5};
+\node[main node] (6) [above right  of=5] {6};
+\node[main node] (7) [below right  of=1] {7};
+
+
+\path[every node/.style={font=\sffamily\small}]
+  
+   
+   
+    (4) edge node [left] {} (5)
+    (5) edge node [left] {} (6)
+    (5) edge node [left] {} (7)
+  
+ 
+\end{tikzpicture}
+\end{minipage}
+}
+\hfill \break
+\break
+
+
+\noindent\fboxsep{%
+\begin{minipage}{14em}
+ \centering
+ Step 3 \textbf{non-optimal}
+\begin{tikzpicture}[auto, node distance=2cm, every loop/.style={},
+                    thick,main node/.style={circle,draw,font=\sffamily\Large\bfseries}]
+
+  \node[main node,draw=none] (1) {};
+  \node[main node,draw=none] (2) [below left of=1] {};
+\node[main node,draw=none] (3) [below  of=2] {};
+\node[main node,fill=red] (4) [right  of=3] {4};
+\node[main node] (5) [ right  of=4] {5};
+\node[main node] (6) [above right  of=5] {6};
+\node[main node] (7) [below right  of=1] {7};
+
+
+\path[every node/.style={font=\sffamily\small}]
+  
+   
+   
+    (4) edge node [left] {} (5)
+    (5) edge node [left] {} (6)
+    (5) edge node [left] {} (7)
+   
+ 
+\end{tikzpicture}
+\end{minipage}}%
+\hfill%
+\fboxsep{%
+\begin{minipage}{14em}
+ \centering
+ Step 4 \textbf{non-optimal}
+\begin{tikzpicture}[auto, node distance=2cm, every loop/.style={},
+                    thick,main node/.style={circle,draw,font=\sffamily\Large\bfseries}]
+   \node[main node,draw=none] (1) {};
+  \node[main node,draw=none] (2) [below left of=1] {};
+\node[main node,draw=none] (3) [below  of=2] {};
+\node[main node,draw=none] (4) [right  of=3] {};
+\node[main node,draw=none] (5) [ right  of=4] {};
+\node[main node] (6) [above right  of=5] {6};
+\node[main node] (7) [below right  of=1] {7};
+
+
+\path[every node/.style={font=\sffamily\small}]
+  
+   
+   
+ 
+   
+ 
+\end{tikzpicture}
+\end{minipage}
+}
+
+\begin{center}
+ Step 5 \textbf{non-optimal}
+ 
+\begin{tikzpicture}[auto, node distance=2cm, every loop/.style={},
+                    thick,main node/.style={circle,draw,font=\sffamily\Large\bfseries}]
+   \node[main node,draw=none] (1) {};
+  \node[main node,draw=none] (2) [below left of=1] {};
+\node[main node,draw=none] (3) [below  of=2] {};
+\node[main node,draw=none] (4) [right  of=3] {};
+\node[main node,draw=none] (5) [ right  of=4] {};
+\node[main node,fill=red] (6) [above right  of=5] {6};
+\node[main node,fill=red] (7) [below right  of=1] {7};
+
+
+\path[every node/.style={font=\sffamily\small}]
+  
+   
+   
+ 
+   
+ 
+\end{tikzpicture}
+\hfill \break
+This leads to four marked Nodes
+\hfill \break
+
 \end{center}
+\newpage
+\hfill \break
+\break
+\textbf{Optimal choice}
+\begin{steps}
+  \item \textbf{Step 1:} Start at Node 2 and \textbf{mark} it
+  \item \textbf{Step 2:} Remove Node 2, 3 and 1 because they are now next to a \textbf{marked} Node
+  \item \textbf{Step 3:} Now \textbf{mark} 5
+  \item \textbf{Step 4:} Remove Nodes 5, 4,7 and 6 because they are now next to a \textbf{marked} Node
+\end{steps}
+\hfill \break
+\break
+
+\noindent\fboxsep{%
+\begin{minipage}{14em}
+ \centering
+ Step 1 \textbf{Optimal}
+\begin{tikzpicture}[auto, node distance=2cm, every loop/.style={},
+                    thick,main node/.style={circle,draw,font=\sffamily\Large\bfseries}]
+
+  \node[main node] (1) {1};
+  \node[main node,fill=red] (2) [below left of=1] {2};
+\node[main node] (3) [below  of=2] {3};
+\node[main node] (4) [right  of=3] {4};
+\node[main node] (5) [ right  of=4] {5};
+\node[main node] (6) [above right  of=5] {6};
+\node[main node] (7) [below right  of=1] {7};
+
+
+\path[every node/.style={font=\sffamily\small}]
+    (1) edge node [left] {} (2)
+    (2) edge node [left] {} (3)
+    (3) edge node [left] {} (4)
+    (4) edge node [left] {} (5)
+    (5) edge node [left] {} (6)
+    (5) edge node [left] {} (7)
+    (7) edge node [left] {} (1);
+ 
+\end{tikzpicture}
+\end{minipage}}%
+\hfill%
+\fboxsep{%
+\begin{minipage}{14em}
+ \centering
+ Step 2 \textbf{Optimal}
+\begin{tikzpicture}[auto, node distance=2cm, every loop/.style={},
+                    thick,main node/.style={circle,draw,font=\sffamily\Large\bfseries}]
+  \node[main node,draw=none] (1) {};
+  \node[main node,draw=none] (2) [below left of=1] {};
+\node[main node,draw=none] (3) [below  of=2] {};
+\node[main node] (4) [right  of=3] {4};
+\node[main node] (5) [ right  of=4] {5};
+\node[main node] (6) [above right  of=5] {6};
+\node[main node] (7) [below right  of=1] {7};
+
+
+\path[every node/.style={font=\sffamily\small}]
+  
+   
+   
+    (4) edge node [left] {} (5)
+    (5) edge node [left] {} (6)
+    (5) edge node [left] {} (7)
+  
+ 
+\end{tikzpicture}
+\end{minipage}
+}
+\hfill \break
+\break
+
+
+\noindent\fboxsep{%
+\begin{minipage}{14em}
+ \centering
+ Step 3 \textbf{Optimal}
+\begin{tikzpicture}[auto, node distance=2cm, every loop/.style={},
+                    thick,main node/.style={circle,draw,font=\sffamily\Large\bfseries}]
+
+  \node[main node,draw=none] (1) {};
+  \node[main node,draw=none] (2) [below left of=1] {};
+\node[main node,draw=none] (3) [below  of=2] {};
+\node[main node] (4) [right  of=3] {4};
+\node[main node,fill=red] (5) [ right  of=4] {5};
+\node[main node] (6) [above right  of=5] {6};
+\node[main node] (7) [below right  of=1] {7};
+
+
+\path[every node/.style={font=\sffamily\small}]
+  
+   
+   
+    (4) edge node [left] {} (5)
+    (5) edge node [left] {} (6)
+    (5) edge node [left] {} (7)
+   
+ 
+\end{tikzpicture}
+\end{minipage}}%
+\hfill%
+\fboxsep{%
+\begin{minipage}{14em}
+ \centering
+ Step 4 \textbf{Optimal}
+\begin{tikzpicture}[auto, node distance=2cm, every loop/.style={},
+                    thick,main node/.style={circle,draw,font=\sffamily\Large\bfseries}]
+   \node[main node,draw=none] (1) {};
+  \node[main node,draw=none] (2) [below left of=1] {};
+\node[main node,draw=none] (3) [below  of=2] {};
+\node[main node,draw=none] (4) [right  of=3] {};
+\node[main node,draw=none] (5) [ right  of=4] {};
+\node[main node,draw=none] (6) [above right  of=5] {};
+\node[main node,draw=none] (7) [below right  of=1] {};
+
+
+\path[every node/.style={font=\sffamily\small}]
+  
+   
+   
+ 
+   
+ 
+\end{tikzpicture}
+\end{minipage}
+}
+\hfill \break
+\break
+
+This leads to two \textbf{Marked} Nodes
+\hfill \break
+\break
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 \pagebreak
 \hfill \break
