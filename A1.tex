@@ -11,7 +11,7 @@
 CPSC 413 Assignment 1 \\
 by Andrew Garcia-Colrey
 \end{center}
-\section{Problem 1}
+\part{Mailmen Problem}
 Question 1
 \begin{center}
 \begin{tikzpicture}
@@ -91,21 +91,23 @@ Where as the Shortest path method still gives the optimal number of paths which 
 \break
 \\
 \newpage
-Step by Step look at \textbf{Shortest} Algorithm
 \hfill \break
 \break
-AH = Array of Houses on Grid pre sorted by x values
+AH = Array of tuple coordinates of Houses pre-sorted by y values
 \newline
-routes =  2D matrix with Mailmen as the first level and their routes as the second array pre polupated 
-GRID = 2D matrix of Size N by N
+numberOfHouse = len(AH)
+\newline
+routes =  2D matrix with Mailmen as the first level and their routes as tuples as the inner array as tuples
 \newline
 currentRow = 0
 \newline
 currentCol = 0
 \newline
 numberOfManmen = 0
+\newline
+N =  max number of rows and col in NxN matrix
 \begin{lstlisting}
-while(len(AH) > 0)
+while(len(numberOfHouse) > 0)
     while (currentCol < N or currentRow < N):
             colIndex = (0,0)
             rowIndex = (0,0)
@@ -126,10 +128,15 @@ while(len(AH) > 0)
                 go right
                 currentRow++
                 routes[numberOfManmen] = (currentRow,currentCol)
-            if deltaX == 0 and deltaY == 0:
-                for index to len(AH):
-                 if AH[index].0 == currentRow & AH[index].1 == currentCol:
-                        remove AH[index] from AH
+            for index to len(AH):
+                if AH[index].0 == currentRow & AH[index].1 == currentCol:
+                    numberOfHouse = numberOfHouse - 1
+            if currentRow == (N-1) and currentRow == (N-1):
+                numberOfManmen = numberOfManmen + 1
+                currentCol = 0
+                currentRow = 0
+                
+            
 
 
 
@@ -142,6 +149,8 @@ while(len(AH) > 0)
                 
     
 \end{lstlisting}
+\\
+\\
 Not looking at the code above we will now look at the problem to try look for its complexity.
 We are trying to find a algorithm that is poly-time. To do this we would like to show that in the worst case we are within the bounds of a poly-time complexity. 
 \\
@@ -167,16 +176,18 @@ With this is mind let us look at the worst case where houses are on a reverse di
 The above Grid showcases the worst case input for our algorithm. Where there is 8 house on the inverse diagonal from our starting positions (0,0). In this example we can clearly see that due to our Mailmens ability to only move down and to the right we will need at least N number of Mailmen to visit all of our houses. 
 \hfill \break
 \break
-So in our worst case we need N Mailmen for N houses. Now each Mailman moves 2n-1 spaces on his route. so this means that if we have the worst case input where our houses are on an inverse angle from our start postion we will need to have N Mailmen move 2n-1 times.
-This gives us a complexity of N(2N-1)
+So in our worst case we need \textit{n} Mailmen for \textit{n} houses, in other words the number of Mailmen equals \textit{n}. Now each Mailman moves 2\textit{n}-1 spaces on his route. So this means that if we have the worst case input where the houses are on an inverse angle from our start position, we will need \textit{n} Mailmen who each move 2\textit{n}-1 times.
+This gives us a complexity of \textit{n}(2\textit{n}-1), leading to a 2\textit{$n^2$} - \textit{n} which is in \textit{O($n^2$)}.
 
-
+\hfill \break
+\break
+Now that we have the worst case run-time of an algorithm not including data structures or anything we need to keep track of let us look at the run-time of the algorithm above.
 
  
 
 
 \pagebreak
-
+\part{Marking Graphs}
 Question 2.1
 \begin{center}
 
@@ -227,6 +238,7 @@ Question 2.1
 Question 2.2
 \\
 \\
+The Graph I have given below is not the smallest number of nodes that you can use to give a counter example. Infact key to the counter example comes by denying the flaw with this algorithm like the one above comes from when there is a tie. particularly when there is no even Node to choose from.
 \begin{center}
 \begin{tikzpicture}[auto, node distance=2cm, every loop/.style={},
                     thick,main node/.style={circle,draw,font=\sffamily\Large\bfseries}]
@@ -260,14 +272,36 @@ Question 2.2
 \end{tikzpicture}
 \end{center}
 
+\pagebreak
+\hfill \break
+\break
 Question 2.3
-\\
-\\
+\hfill \break
+\break
+This question was by far the more difficult of all three. How I decided to tackle the problem was to control the entry points by which the Algorithm could enter the graph. So I created a graph with only two entry points both with the least degree. One of the entry points would give the optimal solution while the other would give the a satisfactory solution but not optimal.
+\hfill \break
+\break
+\textbf{Non-optimal choice}
+\begin{steps}
+  \item \textbf{Step 1:} Start at Node 1
+  \item \textbf{Step 2:} Move to Node 2 because it has a Degree of 3 and \textbf{mark} it
+  \item \textbf{Step 3:} Remove Node 1, 5 and 3 because they are now next to a \textbf{marked} Node
+  \item \textbf{Step 4:} Only Nodes left are 6 and 4 which are not connected by and edge so they each must be marked themselves
+\end{steps}
+\hfill \break
+\break
+This leads to three marked Nodes
 \begin{center}
+
+\end{center}
+\noindent\fboxsep{%
+\begin{minipage}{14em}
+ \centering
+ Step 1 \textbf{non-optimal}
 \begin{tikzpicture}[auto, node distance=2cm, every loop/.style={},
                     thick,main node/.style={circle,draw,font=\sffamily\Large\bfseries}]
 
-  \node[main node] (1) {1};
+  \node[main node,fill=green] (1) {1};
   \node[main node] (2) [ right of=1] {2};
     \node[main node] (3) [ right of=2] {3};
       \node[main node] (4) [ below of=3] {4};
@@ -283,22 +317,202 @@ Question 2.3
     (3) edge node [left] {} (5)
     (6) edge node [left] {} (3)
     (2) edge node [left] {} (5);
+ 
+\end{tikzpicture}
+\end{minipage}}%
+\hfill%
+\fboxsep{%
+\begin{minipage}{14em}
+ \centering
+ Step 2 \textbf{non-optimal}
+\begin{tikzpicture}[auto, node distance=2cm, every loop/.style={},
+                    thick,main node/.style={circle,draw,font=\sffamily\Large\bfseries}]
+
+  \node[main node] (1) {1};
+  \node[main node,fill=red] (2) [ right of=1] {2};
+    \node[main node] (3) [ right of=2] {3};
+      \node[main node] (4) [ below of=3] {4};
+        \node[main node] (5) [ left of=4] {5};
+          \node[main node] (6) [ left of=5] {6};
+
+\path[every node/.style={font=\sffamily\small}]
+    (1) edge node [left] {} (2)
+    (2) edge node [left] {} (3)
+    (3) edge node [left] {} (4)
+    (4) edge node [left] {} (5)
+   
+    (3) edge node [left] {} (5)
+    (6) edge node [left] {} (3)
+    (2) edge node [left] {} (5);
+ 
+\end{tikzpicture}
+\end{minipage}
+}
+\\
+\\
+\\
+\noindent\fboxsep{%
+\begin{minipage}{14em}
+ \centering
+ 
+ Step 3 \textbf{non-optimal}
+\begin{tikzpicture}[auto, node distance=2cm, every loop/.style={},
+                    thick,main node/.style={circle,draw,font=\sffamily\Large\bfseries}]
+
+  \node[main node,draw=none] (1) {};
+  \node[main node,draw=none] (2) [ right of=1] {};
+    \node[main node,draw=none] (3) [ right of=2] {};
+      \node[main node] (4) [ below of=3] {4};
+        \node[main node,draw=none] (5) [ left of=4] {};
+          \node[main node] (6) [ left of=5] {6};
+
 
     
-         
-
-
     
-         
-
-  
-
+   
+    
   
 
  
 \end{tikzpicture}
-\end{center}
+\end{minipage}}%
+\hfill%
+\fboxsep{%
+\begin{minipage}{14em}
+ \centering
+ Step 4 \textbf{non-optimal}
+\begin{tikzpicture}[auto, node distance=2cm, every loop/.style={},
+                    thick,main node/.style={circle,draw,font=\sffamily\Large\bfseries}]
 
+\node[main node,draw=none] (1) {};
+  \node[main node,draw=none] (2) [ right of=1] {};
+    \node[main node,draw=none] (3) [ right of=2] {};
+      \node[main node,fill=red] (4) [ below of=3] {4};
+        \node[main node,draw=none] (5) [ left of=4] {};
+          \node[main node,fill=red] (6) [ left of=5] {6};
+ 
+\end{tikzpicture}
+\end{minipage}
+}
+
+\pagebreak
+\hfill \break
+\break
+\textbf{Optimal choice}
+\begin{steps}
+  \item \textbf{Step 1:} Start at Node 6
+  \item \textbf{Step 2:} Move to Node 3 because it has a Degree of 4 and \textbf{mark} it
+  \item \textbf{Step 3:} Remove Node 3, 5, 2 and 4 because they are now next to a \textbf{marked} Node
+  \item \textbf{Step 4:} Only Node left is 1 and must be \textbf{marked} itself
+\end{steps}
+\hfill \break
+\break
+This leads to only two marked Nodes being needed and is the Optimal Solution for this Graph
+
+\begin{center}
+
+\end{center}
+\noindent\fboxsep{%
+\begin{minipage}{14em}
+ \centering
+ Step 1 \textbf{Optimal}
+\begin{tikzpicture}[auto, node distance=2cm, every loop/.style={},
+                    thick,main node/.style={circle,draw,font=\sffamily\Large\bfseries}]
+
+  \node[main node] (1) {1};
+  \node[main node] (2) [ right of=1] {2};
+    \node[main node] (3) [ right of=2] {3};
+      \node[main node] (4) [ below of=3] {4};
+        \node[main node] (5) [ left of=4] {5};
+          \node[main node,fill=green] (6) [ left of=5] {6};
+
+\path[every node/.style={font=\sffamily\small}]
+    (1) edge node [left] {} (2)
+    (2) edge node [left] {} (3)
+    (3) edge node [left] {} (4)
+    (4) edge node [left] {} (5)
+   
+    (3) edge node [left] {} (5)
+    (6) edge node [left] {} (3)
+    (2) edge node [left] {} (5);
+ 
+\end{tikzpicture}
+\end{minipage}}%
+\hfill%
+\fboxsep{%
+\begin{minipage}{14em}
+ \centering
+ Step 2 \textbf{Optimal}
+\begin{tikzpicture}[auto, node distance=2cm, every loop/.style={},
+                    thick,main node/.style={circle,draw,font=\sffamily\Large\bfseries}]
+
+  \node[main node] (1) {1};
+  \node[main node] (2) [ right of=1] {2};
+    \node[main node,fill=red] (3) [ right of=2] {3};
+      \node[main node] (4) [ below of=3] {4};
+        \node[main node] (5) [ left of=4] {5};
+          \node[main node] (6) [ left of=5] {6};
+
+\path[every node/.style={font=\sffamily\small}]
+    (1) edge node [left] {} (2)
+    (2) edge node [left] {} (3)
+    (3) edge node [left] {} (4)
+    (4) edge node [left] {} (5)
+   
+    (3) edge node [left] {} (5)
+    (6) edge node [left] {} (3)
+    (2) edge node [left] {} (5);
+ 
+\end{tikzpicture}
+\end{minipage}
+}
+\\
+\\
+\\
+\noindent\fboxsep{%
+\begin{minipage}{14em}
+ \centering
+ Step 3 \textbf{Optimal}
+\begin{tikzpicture}[auto, node distance=2cm, every loop/.style={},
+                    thick,main node/.style={circle,draw,font=\sffamily\Large\bfseries}]
+
+  \node[main node] (1) {1};
+  \node[main node,draw=none] (2) [ right of=1] {};
+    \node[main node,draw=none] (3) [ right of=2] {};
+      \node[main node,draw=none] (4) [ below of=3] {};
+        \node[main node,draw=none] (5) [ left of=4] {};
+          \node[main node,draw=none] (6) [ left of=5] {};
+   
+  
+ 
+   
+
+ 
+ 
+\end{tikzpicture}
+\end{minipage}}%
+\hfill%
+\fboxsep{%
+\begin{minipage}{14em}
+ \centering
+ Step 4 \textbf{Optimal}
+\begin{tikzpicture}[auto, node distance=2cm, every loop/.style={},
+                    thick,main node/.style={circle,draw,font=\sffamily\Large\bfseries}]
+
+   \node[main node,fill=red] (1) {1};
+  \node[main node,draw=none] (2) [ right of=1] {};
+    \node[main node,draw=none] (3) [ right of=2] {};
+      \node[main node,draw=none] (4) [ below of=3] {};
+        \node[main node,draw=none] (5) [ left of=4] {};
+          \node[main node,draw=none] (6) [ left of=5] {};
+   
+\end{tikzpicture}
+\end{minipage}
+}
+
+\\
+\\
+The Key these graph problems have seemed to always come when the algorithm reaches a tie. This is where the Algorithm can make mistakes.
 
 
 
