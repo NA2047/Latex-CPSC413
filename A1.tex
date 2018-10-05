@@ -90,6 +90,7 @@ Where as the Shortest path method still gives the optimal number of paths which 
 \hfill \break
 \break
 \\
+\newpage
 Step by Step look at \textbf{Shortest} Algorithm
 \hfill \break
 \break
@@ -120,13 +121,18 @@ while(len(AH) > 0)
             if deltaX > deltaY:
                 go down
                 currentCol++
-                routes[numberOfManmen] = 
+                routes[numberOfManmen] = (currentRow,currentCol)
             if  deltaX < deltaY
                 go right
                 currentRow++
-                
-            
-        
+                routes[numberOfManmen] = (currentRow,currentCol)
+            if deltaX == 0 and deltaY == 0:
+                for index to len(AH):
+                 if AH[index].0 == currentRow & AH[index].1 == currentCol:
+                        remove AH[index] from AH
+
+
+
         
         
            
@@ -136,8 +142,33 @@ while(len(AH) > 0)
                 
     
 \end{lstlisting}
+Not looking at the code above we will now look at the problem to try look for its complexity.
+We are trying to find a algorithm that is poly-time. To do this we would like to show that in the worst case we are within the bounds of a poly-time complexity. 
+\\
+\\
+\\
+With this is mind let us look at the worst case where houses are on a reverse diagonal from our starting position.
+\hfill \break
+\break
+\begin{tikzpicture}
 
-
+\draw[step=0.5cm,color=gray] (-1,-1) grid (3,3);
+\node at (2.75,+2.75) {H};
+\node at (2.25,+2.25) {H};
+\node at (1.75,+1.75) {H};
+\node at (.75,+0.75) {H};
+\node at (+1.25,+1.25) {H};
+\node at (-.75,-.75) {H};
+\node at (+.25,+0.25) {H};
+\node at (-.25,-.25) {H};
+\end{tikzpicture}
+\hfill \break
+\break
+The above Grid showcases the worst case input for our algorithm. Where there is 8 house on the inverse diagonal from our starting positions (0,0). In this example we can clearly see that due to our Mailmens ability to only move down and to the right we will need at least N number of Mailmen to visit all of our houses. 
+\hfill \break
+\break
+So in our worst case we need N Mailmen for N houses. Now each Mailman moves 2n-1 spaces on his route. so this means that if we have the worst case input where our houses are on an inverse angle from our start postion we will need to have N Mailmen move 2n-1 times.
+This gives us a complexity of N(2N-1)
 
 
 
